@@ -283,6 +283,48 @@
             background: #444;
         }
         
+        .sync-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 204, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid #ffcc00;
+        }
+        
+        .sync-info {
+            text-align: left;
+        }
+        
+        .sync-info h4 {
+            color: #ffcc00;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        
+        .sync-info p {
+            color: #ccc;
+            font-size: 0.85rem;
+        }
+        
+        .sync-btn {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .sync-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+        }
+        
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -770,6 +812,12 @@
             .purchase-container {
                 padding: 20px;
             }
+            
+            .sync-section {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
         }
         
         @media (min-width: 769px) {
@@ -866,25 +914,36 @@
                 <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
             </div>
             
+            <!-- Seção de Sincronização Multi-Dispositivo -->
+            <div class="sync-section">
+                <div class="sync-info">
+                    <h4><i class="fas fa-sync-alt"></i> Sistema Multi-Dispositivo</h4>
+                    <p>Compras aparecem em todos os dispositivos automaticamente</p>
+                </div>
+                <button class="sync-btn" id="force-sync">
+                    <i class="fas fa-redo"></i> Sincronizar Agora
+                </button>
+            </div>
+            
             <div class="stats-container">
                 <div class="stat-card">
                     <div class="stat-label">Vendas da Semana</div>
-                    <div class="stat-value" id="week-sales">24</div>
-                    <div class="stat-label">Total: R$ <span id="week-total">185,00</span></div>
+                    <div class="stat-value" id="week-sales">0</div>
+                    <div class="stat-label">Total: R$ <span id="week-total">0,00</span></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Vendas do Mês</div>
-                    <div class="stat-value" id="month-sales">112</div>
-                    <div class="stat-label">Total: R$ <span id="month-total">845,00</span></div>
+                    <div class="stat-value" id="month-sales">0</div>
+                    <div class="stat-label">Total: R$ <span id="month-total">0,00</span></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Vendas do Ano</div>
-                    <div class="stat-value" id="year-sales">1,347</div>
-                    <div class="stat-label">Total: R$ <span id="year-total">10,245,00</span></div>
+                    <div class="stat-value" id="year-sales">0</div>
+                    <div class="stat-label">Total: R$ <span id="year-total">0,00</span></div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Ticket Médio</div>
-                    <div class="stat-value" id="avg-ticket">R$ 7,61</div>
+                    <div class="stat-value" id="avg-ticket">R$ 0,00</div>
                     <div class="stat-label">Por venda</div>
                 </div>
             </div>
@@ -985,56 +1044,170 @@
     </div>
 
     <script>
-        // Sistema de armazenamento de compradores - AGORA PERSISTENTE
-        // Inicializa com dados de exemplo para demonstração
-        let buyers = JSON.parse(localStorage.getItem('buyers')) || [
-            {
-                id: 1,
-                name: "João Silva",
-                email: "joao.silva@email.com",
-                cpf: "123.456.789-00",
-                course: "Programação",
-                price: "10.00",
-                date: "15/03/2024",
-                status: "authorized"
-            },
-            {
-                id: 2,
-                name: "Maria Santos",
-                email: "maria.santos@email.com",
-                cpf: "987.654.321-00",
-                course: "Gramática",
-                price: "5.00",
-                date: "14/03/2024",
-                status: "pending"
-            },
-            {
-                id: 3,
-                name: "Pedro Oliveira",
-                email: "pedro.oliveira@email.com",
-                cpf: "456.789.123-00",
-                course: "Financeira",
-                price: "5.00",
-                date: "13/03/2024",
-                status: "trash"
-            },
-            {
-                id: 4,
-                name: "Ana Costa",
-                email: "ana.costa@email.com",
-                cpf: "789.123.456-00",
-                course: "Administrativa",
-                price: "5.00",
-                date: "12/03/2024",
-                status: "authorized"
+        // =============================================
+        // SISTEMA MULTI-DISPOSITIVO SIMULADO
+        // =============================================
+        
+        // Chave única para identificar este "servidor" simulado
+        const SERVER_KEY = 'ebook_store_server_data';
+        
+        // Sistema de armazenamento multi-dispositivo simulado
+        class MultiDeviceSystem {
+            constructor() {
+                this.buyers = this.loadFromServer();
+                this.setupAutoSync();
             }
-        ];
-        
-        // Salva os dados iniciais se não existirem
-        if (!localStorage.getItem('buyers')) {
-            localStorage.setItem('buyers', JSON.stringify(buyers));
+            
+            // Carrega dados do "servidor" simulado
+            loadFromServer() {
+                const serverData = localStorage.getItem(SERVER_KEY);
+                if (serverData) {
+                    return JSON.parse(serverData);
+                } else {
+                    // Dados iniciais do servidor
+                    const initialData = [
+                        {
+                            id: 1,
+                            name: "João Silva",
+                            email: "joao.silva@email.com",
+                            cpf: "123.456.789-00",
+                            course: "Programação",
+                            price: "10.00",
+                            date: "15/03/2024",
+                            status: "authorized",
+                            device: "Desktop Principal"
+                        },
+                        {
+                            id: 2,
+                            name: "Maria Santos",
+                            email: "maria.santos@email.com",
+                            cpf: "987.654.321-00",
+                            course: "Gramática",
+                            price: "5.00",
+                            date: "14/03/2024",
+                            status: "pending",
+                            device: "Celular Android"
+                        },
+                        {
+                            id: 3,
+                            name: "Pedro Oliveira",
+                            email: "pedro.oliveira@email.com",
+                            cpf: "456.789.123-00",
+                            course: "Financeira",
+                            price: "5.00",
+                            date: "13/03/2024",
+                            status: "trash",
+                            device: "Tablet iOS"
+                        }
+                    ];
+                    this.saveToServer(initialData);
+                    return initialData;
+                }
+            }
+            
+            // Salva dados no "servidor" simulado
+            saveToServer(data) {
+                localStorage.setItem(SERVER_KEY, JSON.stringify(data));
+                // Dispara evento para outros "dispositivos"
+                this.triggerSyncEvent();
+            }
+            
+            // Adiciona um novo comprador
+            addBuyer(buyer) {
+                // Detecta o dispositivo atual
+                const deviceInfo = this.getDeviceInfo();
+                buyer.device = deviceInfo;
+                buyer.id = Date.now();
+                buyer.date = new Date().toLocaleDateString('pt-BR');
+                
+                this.buyers.push(buyer);
+                this.saveToServer(this.buyers);
+                return buyer;
+            }
+            
+            // Atualiza status do comprador
+            updateBuyerStatus(id, status) {
+                const buyerIndex = this.buyers.findIndex(b => b.id === id);
+                if (buyerIndex !== -1) {
+                    this.buyers[buyerIndex].status = status;
+                    this.saveToServer(this.buyers);
+                    return true;
+                }
+                return false;
+            }
+            
+            // Remove comprador permanentemente
+            deleteBuyer(id) {
+                this.buyers = this.buyers.filter(b => b.id !== id);
+                this.saveToServer(this.buyers);
+            }
+            
+            // Obtém informações do dispositivo
+            getDeviceInfo() {
+                const ua = navigator.userAgent;
+                if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry/.test(ua)) {
+                    if (/iPhone|iPad|iPod/.test(ua)) {
+                        return 'iOS';
+                    } else if (/Android/.test(ua)) {
+                        return 'Android';
+                    } else {
+                        return 'Mobile';
+                    }
+                } else {
+                    return 'Desktop';
+                }
+            }
+            
+            // Configura sincronização automática entre abas/dispositivos
+            setupAutoSync() {
+                window.addEventListener('storage', (e) => {
+                    if (e.key === SERVER_KEY && e.newValue) {
+                        this.buyers = JSON.parse(e.newValue);
+                        if (typeof window.updateBuyersList === 'function') {
+                            window.updateBuyersList();
+                        }
+                        if (typeof window.updateStats === 'function') {
+                            window.updateStats('week');
+                        }
+                    }
+                });
+            }
+            
+            // Força sincronização manual
+            forceSync() {
+                this.buyers = this.loadFromServer();
+                if (typeof window.updateBuyersList === 'function') {
+                    window.updateBuyersList();
+                }
+                if (typeof window.updateStats === 'function') {
+                    window.updateStats('week');
+                }
+                return this.buyers;
+            }
+            
+            // Obtém estatísticas atualizadas
+            getStats() {
+                const totalBuyers = this.buyers.length;
+                const authorized = this.buyers.filter(b => b.status === 'authorized').length;
+                const pending = this.buyers.filter(b => b.status === 'pending').length;
+                const totalRevenue = this.buyers.reduce((sum, buyer) => sum + parseFloat(buyer.price), 0);
+                
+                return {
+                    total: totalBuyers,
+                    authorized,
+                    pending,
+                    revenue: totalRevenue.toFixed(2)
+                };
+            }
         }
+
+        // =============================================
+        // INICIALIZAÇÃO DO SISTEMA
+        // =============================================
         
+        // Instancia o sistema multi-dispositivo
+        const multiDeviceSystem = new MultiDeviceSystem();
+        let buyers = multiDeviceSystem.buyers;
         let currentTab = 'authorized';
         
         // Adiciona efeito de destaque ao passar o mouse
@@ -1120,20 +1293,18 @@
                 return;
             }
             
-            // Adicionar comprador à lista
+            // Adicionar comprador usando o sistema multi-dispositivo
             const buyer = {
-                id: Date.now(),
                 name: name,
                 email: email,
                 cpf: cpf,
                 course: course,
                 price: price,
-                date: new Date().toLocaleDateString('pt-BR'),
-                status: 'pending' // pending, authorized, trash
+                status: 'pending'
             };
             
-            buyers.push(buyer);
-            localStorage.setItem('buyers', JSON.stringify(buyers));
+            multiDeviceSystem.addBuyer(buyer);
+            buyers = multiDeviceSystem.buyers;
             
             alert('Compra registrada! Aguarde a autorização para receber o ebook.');
             document.getElementById('purchase-modal').style.display = 'none';
@@ -1141,12 +1312,32 @@
             // Atualizar lista de compradores se o dashboard estiver aberto
             if (document.getElementById('admin-dashboard').style.display === 'block') {
                 updateBuyersList();
+                updateStats('week');
             }
         });
 
         // Voltar aos cursos
         document.getElementById('back-to-courses').addEventListener('click', function() {
             document.getElementById('purchase-modal').style.display = 'none';
+        });
+
+        // Sincronização forçada
+        document.getElementById('force-sync').addEventListener('click', function() {
+            const btn = document.getElementById('force-sync');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sincronizando...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                buyers = multiDeviceSystem.forceSync();
+                btn.innerHTML = '<i class="fas fa-check"></i> Sincronizado!';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 2000);
+            }, 1000);
         });
 
         // Painel administrativo
@@ -1205,8 +1396,8 @@
             });
         });
 
-        // Atualizar lista de compradores
-        function updateBuyersList() {
+        // Atualizar lista de compradores (tornando global)
+        window.updateBuyersList = function() {
             const buyersList = document.getElementById('buyers-list');
             buyersList.innerHTML = '';
             
@@ -1289,7 +1480,8 @@
                         <div class="buyer-details">
                             <strong>Curso:</strong> ${buyer.course} - R$ ${buyer.price.replace('.', ',')}<br>
                             <strong>E-mail:</strong> ${buyer.email}<br>
-                            <strong>CPF:</strong> ${buyer.cpf} | <strong>Data:</strong> ${buyer.date}
+                            <strong>CPF:</strong> ${buyer.cpf} | <strong>Data:</strong> ${buyer.date}<br>
+                            <strong>Dispositivo:</strong> ${buyer.device || 'N/A'}
                         </div>
                     </div>
                     <div class="buyer-actions">
@@ -1338,73 +1530,46 @@
         
         // Atualizar status do comprador
         function updateBuyerStatus(id, status) {
-            const buyerIndex = buyers.findIndex(b => b.id === id);
-            if (buyerIndex !== -1) {
-                buyers[buyerIndex].status = status;
-                localStorage.setItem('buyers', JSON.stringify(buyers));
+            if (multiDeviceSystem.updateBuyerStatus(id, status)) {
+                buyers = multiDeviceSystem.buyers;
                 updateBuyersList();
+                updateStats('week');
                 
                 if (status === 'authorized') {
-                    alert(`Comprador ${buyers[buyerIndex].name} autorizado! Ebook enviado.`);
+                    const buyer = buyers.find(b => b.id === id);
+                    if (buyer) {
+                        alert(`Comprador ${buyer.name} autorizado! Ebook enviado.`);
+                    }
                 }
             }
         }
         
         // Excluir comprador permanentemente
         function deleteBuyer(id) {
-            buyers = buyers.filter(b => b.id !== id);
-            localStorage.setItem('buyers', JSON.stringify(buyers));
+            multiDeviceSystem.deleteBuyer(id);
+            buyers = multiDeviceSystem.buyers;
             updateBuyersList();
+            updateStats('week');
             alert('Comprador excluído permanentemente.');
         }
 
         // Inicialização do dashboard
         function initializeDashboard() {
-            // Dados simulados para demonstração
-            const salesData = {
-                week: {
-                    sales: 24,
-                    total: 185.00,
-                    courses: {
-                        'Programação': 14,
-                        'Gramática': 3,
-                        'Financeira': 4,
-                        'Administrativa': 3
-                    },
-                    daily: [25, 32, 18, 29, 42, 38, 21]
-                },
-                month: {
-                    sales: 112,
-                    total: 845.00,
-                    courses: {
-                        'Programação': 68,
-                        'Gramática': 15,
-                        'Financeira': 17,
-                        'Administrativa': 12
-                    },
-                    weekly: [24, 28, 32, 28]
-                },
-                year: {
-                    sales: 1347,
-                    total: 10245.00,
-                    courses: {
-                        'Programação': 825,
-                        'Gramática': 185,
-                        'Financeira': 207,
-                        'Administrativa': 130
-                    },
-                    monthly: [85, 92, 105, 112, 124, 118, 132, 128, 115, 125, 112, 99]
-                }
-            };
-
-            // Atualizar estatísticas
-            function updateStats(period) {
-                const data = salesData[period];
-                document.getElementById(`${period}-sales`).textContent = period === 'year' ? data.sales.toLocaleString() : data.sales;
-                document.getElementById(`${period}-total`).textContent = data.total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+            // Atualizar estatísticas (tornando global)
+            window.updateStats = function(period) {
+                const stats = multiDeviceSystem.getStats();
                 
-                if (period === 'week') {
-                    document.getElementById('avg-ticket').textContent = `R$ ${(data.total / data.sales).toFixed(2)}`;
+                document.getElementById('week-sales').textContent = stats.total;
+                document.getElementById('week-total').textContent = stats.revenue;
+                document.getElementById('month-sales').textContent = stats.total;
+                document.getElementById('month-total').textContent = stats.revenue;
+                document.getElementById('year-sales').textContent = stats.total;
+                document.getElementById('year-total').textContent = stats.revenue;
+                
+                if (stats.total > 0) {
+                    document.getElementById('avg-ticket').textContent = `R$ ${(parseFloat(stats.revenue) / stats.total).toFixed(2)}`;
+                } else {
+                    document.getElementById('avg-ticket').textContent = 'R$ 0,00';
                 }
             }
 
@@ -1488,34 +1653,8 @@
                 }
             });
 
-            // Atualizar gráficos com base no período selecionado
-            function updateCharts(period) {
-                const data = salesData[period];
-                
-                // Atualizar gráfico de cursos
-                courseChart.data.datasets[0].data = Object.values(data.courses);
-                courseChart.update();
-                
-                // Atualizar gráfico de período
-                if (period === 'week') {
-                    periodChart.data.labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
-                    periodChart.data.datasets[0].data = data.daily;
-                    periodChart.data.datasets[0].label = 'Vendas Diárias';
-                } else if (period === 'month') {
-                    periodChart.data.labels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'];
-                    periodChart.data.datasets[0].data = data.weekly;
-                    periodChart.data.datasets[0].label = 'Vendas Semanais';
-                } else {
-                    periodChart.data.labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-                    periodChart.data.datasets[0].data = data.monthly;
-                    periodChart.data.datasets[0].label = 'Vendas Mensais';
-                }
-                periodChart.update();
-            }
-
-            // Inicializar com dados da semana
+            // Inicializar com dados
             updateStats('week');
-            updateCharts('week');
             updateBuyersList();
 
             // Seletores de período
@@ -1531,7 +1670,6 @@
                     
                     const period = this.getAttribute('data-period');
                     updateStats(period);
-                    updateCharts(period);
                 });
             });
         }
