@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Disponíveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #2d2d2d 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: rgba(20, 20, 20, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .container > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ffcc00, #ff9900);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 204, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .option {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border-radius: 15px;
+            padding: 25px 15px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 1px solid #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ffcc00, #ff9900);
+        }
+        
+        .option:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+            border-color: #ffcc00;
+        }
+        
+        .option-icon {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 12px;
+            color: #ffcc00;
+        }
+        
+        .option h2 {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        
+        .option p {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: #aaa;
+            margin-bottom: 15px;
+            min-height: 35px;
+        }
+        
+        .price {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: bold;
+            color: #ffcc00;
+            text-shadow: 0 2px 5px rgba(255, 204, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .price-tag {
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            display: inline-block;
+            margin-left: 5px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            color: #777;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Estilos do Painel Administrativo */
+        .admin-panel {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+        
+        .admin-panel h3 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+        }
+        
+        .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .admin-input {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background: #1a1a1a;
+            color: white;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .admin-input:focus {
+            outline: none;
+            border-color: #ffcc00;
+        }
+        
+        .admin-btn {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .admin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4);
+        }
+        
+        .admin-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .success {
+            background: rgba(0, 200, 0, 0.2);
+            border: 1px solid #0a0;
+            color: #0f0;
+        }
+        
+        .error {
+            background: rgba(200, 0, 0, 0.2);
+            border: 1px solid #a00;
+            color: #f00;
+        }
+        
+        /* Estilos do Dashboard Administrativo */
+        .admin-dashboard {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-header h2 {
+            color: #ffcc00;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            text-align: center;
+        }
+        
+        .logout-btn {
+            padding: 10px 15px;
+            background: #333;
+            color: #ffcc00;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            align-self: center;
+        }
+        
+        .logout-btn:hover {
+            background: #444;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+        
+        .stat-value {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: bold;
+            color: #ffcc00;
+            margin: 8px 0;
+        }
+        
+        .stat-label {
+            color: #aaa;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .chart-card {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #333;
+        }
+        
+        .chart-card h3 {
+            color: #ffcc00;
+            margin-bottom: 12px;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            text-align: center;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 200px;
+        }
+        
+        .period-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .period-btn {
+            padding: 8px 12px;
+            background: #333;
+            color: #aaa;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+        }
+        
+        .period-btn.active {
+            background: #ffcc00;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .period-btn:hover:not(.active) {
+            background: #444;
+            color: #fff;
+        }
+        
+        /* Estilos da Tela de Compra */
+        .purchase-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .purchase-container {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border-radius: 15px;
+            padding: 25px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: center;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .purchase-title {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+        
+        .purchase-price {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #ffcc00;
+        }
+        
+        .purchase-description {
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            margin-bottom: 20px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .purchase-section {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .purchase-section h3 {
+            color: #ffcc00;
+            margin-bottom: 12px;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+        }
+        
+        .pix-key-container {
+            background: rgba(255, 204, 0, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ffcc00;
+        }
+        
+        .pix-key {
+            font-family: monospace;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            color: #ffcc00;
+            word-break: break-all;
+            margin-bottom: 12px;
+        }
+        
+        .form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background: #1a1a1a;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #ffcc00;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            padding: 15px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        }
+        
+        .primary-btn {
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            color: #000;
+        }
+        
+        .secondary-btn {
+            background: #333;
+            color: #ffcc00;
+            border: 1px solid #555;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2);
+        }
+        
+        .qr-container {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 15px;
+            background: white;
+            padding: 8px;
+            border-radius: 10px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #444;
+            margin: 20px 0;
+            border: none;
+        }
+        
+        /* Estilos do Sistema de Compradores */
+        .buyers-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            border: 1px solid #444;
+        }
+        
+        .buyers-section h3 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            text-align: center;
+        }
+        
+        .buyers-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border-radius: 10px;
+            padding: 4px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+        }
+        
+        .buyer-tab {
+            flex: 1;
+            padding: 10px 15px;
+            background: transparent;
+            color: #aaa;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: bold;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            min-width: 100px;
+        }
+        
+        .buyer-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .buyer-tab.active {
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.3);
+        }
+        
+        .buyer-tab.active::before {
+            opacity: 1;
+        }
+        
+        .buyer-tab:hover:not(.active) {
+            color: #ffcc00;
+            background: rgba(255, 204, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .buyers-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        
+        .buyer-item {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 15px;
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .buyer-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            border-color: #ffcc00;
+        }
+        
+        .buyer-info {
+            text-align: left;
+            flex: 1;
+        }
+        
+        .buyer-name {
+            font-weight: bold;
+            color: #ffcc00;
+            margin-bottom: 8px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        }
+        
+        .buyer-details {
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            color: #aaa;
+            line-height: 1.4;
+        }
+        
+        .buyer-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        
+        .authorize-btn, .deny-btn, .restore-btn, .delete-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: clamp(0.7rem, 2vw, 0.85rem);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            flex: 1;
+            min-width: 80px;
+        }
+        
+        .authorize-btn {
+            background: linear-gradient(45deg, #00aa00, #00cc00);
+            color: white;
+        }
+        
+        .deny-btn {
+            background: linear-gradient(45deg, #aa0000, #cc0000);
+            color: white;
+        }
+        
+        .restore-btn {
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            color: black;
+        }
+        
+        .delete-btn {
+            background: linear-gradient(45deg, #660000, #880000);
+            color: white;
+        }
+        
+        .authorize-btn:hover, .deny-btn:hover, .restore-btn:hover, .delete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .authorized-badge, .pending-badge, .trash-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .authorized-badge {
+            background: linear-gradient(45deg, #00aa00, #00cc00);
+            color: white;
+        }
+        
+        .pending-badge {
+            background: linear-gradient(45deg, #ff9900, #ffcc00);
+            color: black;
+        }
+        
+        .trash-badge {
+            background: linear-gradient(45deg, #aa0000, #cc0000);
+            color: white;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+        }
+        
+        .empty-state i {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            margin-bottom: 15px;
+            color: #555;
+            opacity: 0.7;
+        }
+        
+        .empty-state p {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: #999;
+        }
+        
+        /* Melhorias específicas para mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .options-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .option {
+                padding: 20px 15px;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .buyer-item {
+                padding: 12px;
+            }
+            
+            .buyer-actions {
+                justify-content: stretch;
+            }
+            
+            .authorize-btn, .deny-btn, .restore-btn, .delete-btn {
+                flex: 1;
+                min-width: 70px;
+                padding: 8px 10px;
+            }
+            
+            .purchase-container {
+                padding: 20px;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .dashboard-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .charts-container {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .buyer-item {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .buyer-actions {
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Olá, O que deseja aprender?</h1>
+        <p class="subtitle">Escolha uma das nossas áreas de especialização</p>
+        
+        <div class="options-container">
+            <div class="option pulse" data-course="Programação" data-price="10.00">
+                <div class="option-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h2>Programações <span class="highlight">POPULAR</span></h2>
+                <p>Lua, Python, JavaScript, HTML e muito mais</p>
+                <div class="price">
+                    <span class="price-tag">R$ 10,00</span>
+                </div>
+            </div>
+            
+            <div class="option" data-course="Gramática" data-price="5.00">
+                <div class="option-icon">
+                    <i class="fas fa-pen-fancy"></i>
+                </div>
+                <h2>Aprender Gramática</h2>
+                <p>Melhore sua comunicação escrita e falada</p>
+                <div class="price">
+                    <span class="price-tag">R$ 05,00</span>
+                </div>
+            </div>
+            
+            <div class="option" data-course="Financeira" data-price="5.00">
+                <div class="option-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h2>Área Financeira</h2>
+                <p>Domine conceitos de finanças e investimentos</p>
+                <div class="price">
+                    <span class="price-tag">R$ 05,00</span>
+                </div>
+            </div>
+            
+            <div class="option" data-course="Administrativa" data-price="5.00">
+                <div class="option-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h2>Área Administrativa</h2>
+                <p>Aprenda gestão e processos administrativos</p>
+                <div class="price">
+                    <span class="price-tag">R$ 05,00</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Preços especiais por tempo limitado | Garanta já sua vaga!</p>
+        </div>
+        
+        <!-- Painel Administrativo -->
+        <div class="admin-panel">
+            <h3><i class="fas fa-lock"></i> Painel Administrativo</h3>
+            <div class="admin-form">
+                <input type="password" class="admin-input" id="admin-password" placeholder="Digite a senha de acesso">
+                <button class="admin-btn" id="admin-login">Acessar Painel</button>
+            </div>
+            <div class="admin-message" id="admin-message"></div>
+        </div>
+        
+        <!-- Dashboard Administrativo -->
+        <div class="admin-dashboard" id="admin-dashboard">
+            <div class="dashboard-header">
+                <h2><i class="fas fa-chart-bar"></i> Dashboard de Vendas</h2>
+                <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-label">Vendas da Semana</div>
+                    <div class="stat-value" id="week-sales">24</div>
+                    <div class="stat-label">Total: R$ <span id="week-total">185,00</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Vendas do Mês</div>
+                    <div class="stat-value" id="month-sales">112</div>
+                    <div class="stat-label">Total: R$ <span id="month-total">845,00</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Vendas do Ano</div>
+                    <div class="stat-value" id="year-sales">1,347</div>
+                    <div class="stat-label">Total: R$ <span id="year-total">10,245,00</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Ticket Médio</div>
+                    <div class="stat-value" id="avg-ticket">R$ 7,61</div>
+                    <div class="stat-label">Por venda</div>
+                </div>
+            </div>
+            
+            <div class="period-selector">
+                <button class="period-btn active" data-period="week">Semana</button>
+                <button class="period-btn" data-period="month">Mês</button>
+                <button class="period-btn" data-period="year">Ano</button>
+            </div>
+            
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h3>Vendas por Curso</h3>
+                    <div class="chart-container">
+                        <canvas id="courseChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Vendas por Período</h3>
+                    <div class="chart-container">
+                        <canvas id="periodChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sistema de Compradores -->
+            <div class="buyers-section">
+                <h3><i class="fas fa-users"></i> Sistema de Compradores</h3>
+                
+                <div class="buyers-tabs">
+                    <button class="buyer-tab active" data-tab="authorized">Autorizados</button>
+                    <button class="buyer-tab" data-tab="pending">Em espera</button>
+                    <button class="buyer-tab" data-tab="trash">Lixeira</button>
+                </div>
+                
+                <div class="buyers-list" id="buyers-list">
+                    <!-- Lista de compradores será gerada aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Compra -->
+    <div class="purchase-modal" id="purchase-modal">
+        <div class="purchase-container">
+            <h2 class="purchase-title" id="purchase-title">Deseja Comprar o Ebook de Programação?</h2>
+            <div class="purchase-price" id="purchase-price">Valor: R$ 10,00</div>
+            <p class="purchase-description">Após a confirmação do pagamento, o eBook será enviado diretamente para o seu e-mail em até 24 horas.</p>
+            
+            <div class="purchase-section">
+                <h3>Pagamento via PIX</h3>
+                <p style="color: #ccc; margin-bottom: 15px;">Copie a chave abaixo:</p>
+                
+                <div class="pix-key-container">
+                    <div class="pix-key" id="pix-key">00020126580014br.gov.bcb.pix0136aae6e021-5a8d-4f15-9c39-5598b8c97f5f520400005303986540510.005802BR5913SEU NOME6008BRASILIA62070503***6304E2CA</div>
+                    <button class="action-btn secondary-btn" id="copy-pix" style="width: 100%;">
+                        <i class="fas fa-copy"></i> Copiar Chave PIX
+                    </button>
+                </div>
+                
+                <button class="action-btn secondary-btn" id="generate-qr" style="width: 100%; margin-bottom: 20px;">
+                    <i class="fas fa-qrcode"></i> Gerar QR Code
+                </button>
+                
+                <div class="qr-container" id="qr-container">
+                    <hr class="divider">
+                    <p style="color: #ccc; margin-bottom: 15px;">Escaneie o QR Code com seu app bancário:</p>
+                    <div class="qr-code" id="qr-code">
+                        <!-- QR Code será gerado aqui -->
+                        <div style="width: 100%; height: 100%; background: #f0f0f0; display: flex; justify-content: center; align-items: center; color: #333; font-weight: bold;">
+                            QR CODE PIX
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="purchase-section">
+                <h3>Dados para Entrega</h3>
+                <div class="form-group">
+                    <label for="customer-name">Nome completo</label>
+                    <input type="text" class="form-input" id="customer-name" placeholder="Digite seu nome completo">
+                </div>
+                <div class="form-group">
+                    <label for="customer-email">E-mail</label>
+                    <input type="email" class="form-input" id="customer-email" placeholder="Digite seu e-mail">
+                </div>
+                <div class="form-group">
+                    <label for="customer-cpf">CPF</label>
+                    <input type="text" class="form-input" id="customer-cpf" placeholder="Digite seu CPF">
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn secondary-btn" id="back-to-courses">Voltar</button>
+                <button class="action-btn primary-btn" id="confirm-purchase">Confirmar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de armazenamento de compradores - AGORA PERSISTENTE
+        // Inicializa com dados de exemplo para demonstração
+        let buyers = JSON.parse(localStorage.getItem('buyers')) || [
+            {
+                id: 1,
+                name: "João Silva",
+                email: "joao.silva@email.com",
+                cpf: "123.456.789-00",
+                course: "Programação",
+                price: "10.00",
+                date: "15/03/2024",
+                status: "authorized"
+            },
+            {
+                id: 2,
+                name: "Maria Santos",
+                email: "maria.santos@email.com",
+                cpf: "987.654.321-00",
+                course: "Gramática",
+                price: "5.00",
+                date: "14/03/2024",
+                status: "pending"
+            },
+            {
+                id: 3,
+                name: "Pedro Oliveira",
+                email: "pedro.oliveira@email.com",
+                cpf: "456.789.123-00",
+                course: "Financeira",
+                price: "5.00",
+                date: "13/03/2024",
+                status: "trash"
+            },
+            {
+                id: 4,
+                name: "Ana Costa",
+                email: "ana.costa@email.com",
+                cpf: "789.123.456-00",
+                course: "Administrativa",
+                price: "5.00",
+                date: "12/03/2024",
+                status: "authorized"
+            }
+        ];
+        
+        // Salva os dados iniciais se não existirem
+        if (!localStorage.getItem('buyers')) {
+            localStorage.setItem('buyers', JSON.stringify(buyers));
+        }
+        
+        let currentTab = 'authorized';
+        
+        // Adiciona efeito de destaque ao passar o mouse
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('mouseenter', function() {
+                this.classList.add('pulse');
+            });
+            
+            option.addEventListener('mouseleave', function() {
+                this.classList.remove('pulse');
+            });
+            
+            // Adiciona evento de clique para abrir modal de compra
+            option.addEventListener('click', function() {
+                const course = this.getAttribute('data-course');
+                const price = this.getAttribute('data-price');
+                openPurchaseModal(course, price);
+            });
+        });
+
+        // Função para abrir modal de compra
+        function openPurchaseModal(course, price) {
+            const modal = document.getElementById('purchase-modal');
+            const title = document.getElementById('purchase-title');
+            const priceElement = document.getElementById('purchase-price');
+            
+            title.textContent = `Deseja Comprar o Ebook de ${course}?`;
+            priceElement.textContent = `Valor: R$ ${price.replace('.', ',')}`;
+            
+            modal.style.display = 'flex';
+            
+            // Resetar estado do modal
+            document.getElementById('qr-container').style.display = 'none';
+            document.getElementById('customer-name').value = '';
+            document.getElementById('customer-email').value = '';
+            document.getElementById('customer-cpf').value = '';
+            
+            // Armazenar dados do curso selecionado
+            modal.dataset.selectedCourse = course;
+            modal.dataset.selectedPrice = price;
+        }
+
+        // Gerar QR Code
+        document.getElementById('generate-qr').addEventListener('click', function() {
+            document.getElementById('qr-container').style.display = 'block';
+            
+            // Scroll suave para o QR Code
+            document.getElementById('qr-container').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+
+        // Copiar chave PIX
+        document.getElementById('copy-pix').addEventListener('click', function() {
+            const pixKey = document.getElementById('pix-key').textContent;
+            navigator.clipboard.writeText(pixKey).then(function() {
+                const btn = document.getElementById('copy-pix');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> Chave Copiada!';
+                btn.style.background = '#00cc00';
+                btn.style.color = 'white';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 2000);
+            });
+        });
+
+        // Confirmar compra
+        document.getElementById('confirm-purchase').addEventListener('click', function() {
+            const modal = document.getElementById('purchase-modal');
+            const course = modal.dataset.selectedCourse;
+            const price = modal.dataset.selectedPrice;
+            const name = document.getElementById('customer-name').value;
+            const email = document.getElementById('customer-email').value;
+            const cpf = document.getElementById('customer-cpf').value;
+            
+            if (!name || !email || !cpf) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+            
+            // Adicionar comprador à lista
+            const buyer = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                cpf: cpf,
+                course: course,
+                price: price,
+                date: new Date().toLocaleDateString('pt-BR'),
+                status: 'pending' // pending, authorized, trash
+            };
+            
+            buyers.push(buyer);
+            localStorage.setItem('buyers', JSON.stringify(buyers));
+            
+            alert('Compra registrada! Aguarde a autorização para receber o ebook.');
+            document.getElementById('purchase-modal').style.display = 'none';
+            
+            // Atualizar lista de compradores se o dashboard estiver aberto
+            if (document.getElementById('admin-dashboard').style.display === 'block') {
+                updateBuyersList();
+            }
+        });
+
+        // Voltar aos cursos
+        document.getElementById('back-to-courses').addEventListener('click', function() {
+            document.getElementById('purchase-modal').style.display = 'none';
+        });
+
+        // Painel administrativo
+        document.getElementById('admin-login').addEventListener('click', function() {
+            const password = document.getElementById('admin-password').value;
+            const message = document.getElementById('admin-message');
+            const adminPanel = document.getElementById('admin-dashboard');
+            
+            if (password === 'Tropadorodo157') {
+                message.textContent = 'Acesso concedido! Carregando dashboard...';
+                message.className = 'admin-message success';
+                message.style.display = 'block';
+                
+                // Esconder o formulário de login e mostrar o dashboard
+                document.querySelector('.admin-form').style.display = 'none';
+                setTimeout(() => {
+                    adminPanel.style.display = 'block';
+                    message.style.display = 'none';
+                    initializeDashboard();
+                }, 1500);
+            } else {
+                message.textContent = 'Senha incorreta. Tente novamente.';
+                message.className = 'admin-message error';
+                message.style.display = 'block';
+            }
+        });
+
+        // Permitir pressionar Enter para enviar a senha
+        document.getElementById('admin-password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('admin-login').click();
+            }
+        });
+
+        // Botão de logout
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.querySelector('.admin-form').style.display = 'flex';
+            document.getElementById('admin-password').value = '';
+        });
+
+        // Tabs do sistema de compradores
+        document.querySelectorAll('.buyer-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remover classe active de todas as tabs
+                document.querySelectorAll('.buyer-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // Adicionar classe active à tab clicada
+                this.classList.add('active');
+                
+                // Atualizar tab atual
+                currentTab = this.getAttribute('data-tab');
+                updateBuyersList();
+            });
+        });
+
+        // Atualizar lista de compradores
+        function updateBuyersList() {
+            const buyersList = document.getElementById('buyers-list');
+            buyersList.innerHTML = '';
+            
+            // Filtrar compradores baseado na tab atual
+            let filteredBuyers = buyers.filter(buyer => {
+                if (currentTab === 'authorized') return buyer.status === 'authorized';
+                if (currentTab === 'pending') return buyer.status === 'pending';
+                if (currentTab === 'trash') return buyer.status === 'trash';
+                return false;
+            });
+            
+            if (filteredBuyers.length === 0) {
+                let emptyMessage = '';
+                let emptyIcon = '';
+                
+                if (currentTab === 'authorized') {
+                    emptyMessage = 'Nenhum comprador autorizado ainda.';
+                    emptyIcon = 'fa-user-check';
+                }
+                if (currentTab === 'pending') {
+                    emptyMessage = 'Nenhum comprador em espera.';
+                    emptyIcon = 'fa-clock';
+                }
+                if (currentTab === 'trash') {
+                    emptyMessage = 'Lixeira vazia.';
+                    emptyIcon = 'fa-trash';
+                }
+                
+                buyersList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas ${emptyIcon}"></i>
+                        <p>${emptyMessage}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredBuyers.forEach(buyer => {
+                const buyerItem = document.createElement('div');
+                buyerItem.className = 'buyer-item';
+                
+                const statusBadge = buyer.status === 'authorized' 
+                    ? '<span class="authorized-badge"><i class="fas fa-check-circle"></i> Autorizado</span>'
+                    : buyer.status === 'pending'
+                    ? '<span class="pending-badge"><i class="fas fa-clock"></i> Em espera</span>'
+                    : '<span class="trash-badge"><i class="fas fa-trash"></i> Lixeira</span>';
+                
+                let actionButtons = '';
+                
+                if (currentTab === 'pending') {
+                    actionButtons = `
+                        <button class="authorize-btn" data-id="${buyer.id}">
+                            <i class="fas fa-check"></i> Autorizar
+                        </button>
+                        <button class="deny-btn" data-id="${buyer.id}">
+                            <i class="fas fa-times"></i> Negar
+                        </button>
+                    `;
+                } else if (currentTab === 'authorized') {
+                    actionButtons = `
+                        <button class="deny-btn" data-id="${buyer.id}">
+                            <i class="fas fa-undo"></i> Reverter
+                        </button>
+                    `;
+                } else if (currentTab === 'trash') {
+                    actionButtons = `
+                        <button class="restore-btn" data-id="${buyer.id}">
+                            <i class="fas fa-trash-restore"></i> Restaurar
+                        </button>
+                        <button class="delete-btn" data-id="${buyer.id}">
+                            <i class="fas fa-trash-alt"></i> Excluir
+                        </button>
+                    `;
+                }
+                
+                buyerItem.innerHTML = `
+                    <div class="buyer-info">
+                        <div class="buyer-name">${buyer.name}</div>
+                        ${statusBadge}
+                        <div class="buyer-details">
+                            <strong>Curso:</strong> ${buyer.course} - R$ ${buyer.price.replace('.', ',')}<br>
+                            <strong>E-mail:</strong> ${buyer.email}<br>
+                            <strong>CPF:</strong> ${buyer.cpf} | <strong>Data:</strong> ${buyer.date}
+                        </div>
+                    </div>
+                    <div class="buyer-actions">
+                        ${actionButtons}
+                    </div>
+                `;
+                
+                buyersList.appendChild(buyerItem);
+            });
+            
+            // Adicionar eventos aos botões
+            document.querySelectorAll('.authorize-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    updateBuyerStatus(id, 'authorized');
+                });
+            });
+            
+            document.querySelectorAll('.deny-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    if (currentTab === 'pending') {
+                        updateBuyerStatus(id, 'trash');
+                    } else {
+                        updateBuyerStatus(id, 'pending');
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.restore-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    updateBuyerStatus(id, 'pending');
+                });
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    if (confirm('Tem certeza que deseja excluir permanentemente este comprador?')) {
+                        deleteBuyer(id);
+                    }
+                });
+            });
+        }
+        
+        // Atualizar status do comprador
+        function updateBuyerStatus(id, status) {
+            const buyerIndex = buyers.findIndex(b => b.id === id);
+            if (buyerIndex !== -1) {
+                buyers[buyerIndex].status = status;
+                localStorage.setItem('buyers', JSON.stringify(buyers));
+                updateBuyersList();
+                
+                if (status === 'authorized') {
+                    alert(`Comprador ${buyers[buyerIndex].name} autorizado! Ebook enviado.`);
+                }
+            }
+        }
+        
+        // Excluir comprador permanentemente
+        function deleteBuyer(id) {
+            buyers = buyers.filter(b => b.id !== id);
+            localStorage.setItem('buyers', JSON.stringify(buyers));
+            updateBuyersList();
+            alert('Comprador excluído permanentemente.');
+        }
+
+        // Inicialização do dashboard
+        function initializeDashboard() {
+            // Dados simulados para demonstração
+            const salesData = {
+                week: {
+                    sales: 24,
+                    total: 185.00,
+                    courses: {
+                        'Programação': 14,
+                        'Gramática': 3,
+                        'Financeira': 4,
+                        'Administrativa': 3
+                    },
+                    daily: [25, 32, 18, 29, 42, 38, 21]
+                },
+                month: {
+                    sales: 112,
+                    total: 845.00,
+                    courses: {
+                        'Programação': 68,
+                        'Gramática': 15,
+                        'Financeira': 17,
+                        'Administrativa': 12
+                    },
+                    weekly: [24, 28, 32, 28]
+                },
+                year: {
+                    sales: 1347,
+                    total: 10245.00,
+                    courses: {
+                        'Programação': 825,
+                        'Gramática': 185,
+                        'Financeira': 207,
+                        'Administrativa': 130
+                    },
+                    monthly: [85, 92, 105, 112, 124, 118, 132, 128, 115, 125, 112, 99]
+                }
+            };
+
+            // Atualizar estatísticas
+            function updateStats(period) {
+                const data = salesData[period];
+                document.getElementById(`${period}-sales`).textContent = period === 'year' ? data.sales.toLocaleString() : data.sales;
+                document.getElementById(`${period}-total`).textContent = data.total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+                
+                if (period === 'week') {
+                    document.getElementById('avg-ticket').textContent = `R$ ${(data.total / data.sales).toFixed(2)}`;
+                }
+            }
+
+            // Gráfico de vendas por curso
+            const courseCtx = document.getElementById('courseChart').getContext('2d');
+            let courseChart = new Chart(courseCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Programação', 'Gramática', 'Financeira', 'Administrativa'],
+                    datasets: [{
+                        data: [14, 3, 4, 3],
+                        backgroundColor: [
+                            '#ffcc00',
+                            '#ff9900',
+                            '#ff6600',
+                            '#ff3300'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#fff',
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico de vendas por período
+            const periodCtx = document.getElementById('periodChart').getContext('2d');
+            let periodChart = new Chart(periodCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    datasets: [{
+                        label: 'Vendas',
+                        data: [25, 32, 18, 29, 42, 38, 21],
+                        backgroundColor: '#ffcc00',
+                        borderColor: '#ff9900',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#aaa'
+                            },
+                            grid: {
+                                color: '#333'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#aaa'
+                            },
+                            grid: {
+                                color: '#333'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Atualizar gráficos com base no período selecionado
+            function updateCharts(period) {
+                const data = salesData[period];
+                
+                // Atualizar gráfico de cursos
+                courseChart.data.datasets[0].data = Object.values(data.courses);
+                courseChart.update();
+                
+                // Atualizar gráfico de período
+                if (period === 'week') {
+                    periodChart.data.labels = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+                    periodChart.data.datasets[0].data = data.daily;
+                    periodChart.data.datasets[0].label = 'Vendas Diárias';
+                } else if (period === 'month') {
+                    periodChart.data.labels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'];
+                    periodChart.data.datasets[0].data = data.weekly;
+                    periodChart.data.datasets[0].label = 'Vendas Semanais';
+                } else {
+                    periodChart.data.labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+                    periodChart.data.datasets[0].data = data.monthly;
+                    periodChart.data.datasets[0].label = 'Vendas Mensais';
+                }
+                periodChart.update();
+            }
+
+            // Inicializar com dados da semana
+            updateStats('week');
+            updateCharts('week');
+            updateBuyersList();
+
+            // Seletores de período
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remover classe active de todos os botões
+                    document.querySelectorAll('.period-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    // Adicionar classe active ao botão clicado
+                    this.classList.add('active');
+                    
+                    const period = this.getAttribute('data-period');
+                    updateStats(period);
+                    updateCharts(period);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
