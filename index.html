@@ -3,96 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Amor Eterno</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Para Maria, Meu Grande Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #ffb6c1, #ffc0cb, #ffd1dc);
-            color: #8b0000;
-            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e6e6ff;
+            line-height: 1.6;
+            font-family: 'Raleway', sans-serif;
             overflow-x: hidden;
-            padding: 20px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
         }
 
         header {
             text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #6a3093 0%, #a044ff 100%);
+            color: white;
+            border-radius: 15px;
             margin-bottom: 40px;
-            animation: fadeIn 2s ease-in-out;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(106, 48, 147, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M50,20 C60,10 80,15 80,30 C80,45 60,50 50,60 C40,50 20,45 20,30 C20,15 40,10 50,20 Z"/></svg>');
         }
 
         h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            color: #b22222;
+            font-family: 'Dancing Script', cursive;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
         }
 
         .subtitle {
-            font-size: 1.5rem;
-            color: #8b0000;
-            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            position: relative;
         }
 
-        .heart {
-            color: #ff4d6d;
-            display: inline-block;
-            animation: heartbeat 1.5s infinite;
+        .dates {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+            position: relative;
         }
 
-        .intro {
+        .date-card {
+            background-color: rgba(255,255,255,0.15);
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            color: #e6e6ff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .date-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #2d2d44 0%, #252536 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+            border: 1px solid #3a3a5d;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(106, 48, 147, 0.3);
+        }
+
+        h2 {
+            color: #b19cd9;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
             text-align: center;
-            margin: 40px 0;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid #4a3f6b;
+            padding-bottom: 15px;
+        }
+
+        .love-text {
             font-size: 1.2rem;
-            line-height: 1.8;
+            margin-bottom: 25px;
+            text-align: justify;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #e6e6ff;
+        }
+
+        .love-text:nth-child(even) {
+            background: linear-gradient(135deg, #3a3a5d 0%, #2d2d44 100%);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #8a6bb8;
+        }
+
+        .compliments-section {
+            background: linear-gradient(135deg, #3a3a5d 0%, #2d2d44 100%);
+            border: 2px dashed #8a6bb8;
+        }
+
+        .compliments-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .compliment-card {
+            background: linear-gradient(135deg, #2d2d44 0%, #252536 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #4a3f6b;
+        }
+
+        .compliment-card::before {
+            content: "♥";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #6a3093;
+            font-size: 1.5rem;
+        }
+
+        .compliment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(106, 48, 147, 0.4);
+            background: linear-gradient(135deg, #3a3a5d 0%, #2d2d44 100%);
+        }
+
+        .compliment-card:nth-child(3n+1) {
+            border-top: 4px solid #8a6bb8;
+        }
+
+        .compliment-card:nth-child(3n+2) {
+            border-top: 4px solid #a044ff;
+        }
+
+        .compliment-card:nth-child(3n+3) {
+            border-top: 4px solid #6a3093;
+        }
+
+        .compliment-text {
+            font-size: 1.1rem;
+            color: #d8d8f0;
+            font-style: italic;
+            text-align: center;
         }
 
         .timeline {
             position: relative;
-            margin: 40px 0;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .timeline::before {
+        .timeline::after {
             content: '';
             position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #8a6bb8, #a044ff);
+            top: 0;
+            bottom: 0;
             left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: #ff4d6d;
-            border-radius: 10px;
+            margin-left: -3px;
+            border-radius: 3px;
         }
 
         .timeline-item {
-            width: 45%;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 10px 40px;
             position: relative;
-            animation: fadeInUp 1s ease-out;
+            width: 50%;
+            box-sizing: border-box;
         }
 
         .timeline-item:nth-child(odd) {
@@ -100,95 +219,81 @@
         }
 
         .timeline-item:nth-child(even) {
-            left: 55%;
+            left: 50%;
         }
 
-        .timeline-item::after {
-            content: '';
+        .timeline-content {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #2d2d44 0%, #252536 100%);
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid #4a3f6b;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: " ";
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff4d6d;
-            border-radius: 50%;
-            top: 30px;
+            top: 20px;
+            right: -14px;
+            border: 7px solid #2d2d44;
+            border-color: transparent transparent transparent #2d2d44;
         }
 
-        .timeline-item:nth-child(odd)::after {
-            right: -50px;
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: " ";
+            position: absolute;
+            top: 20px;
+            left: -14px;
+            border: 7px solid #2d2d44;
+            border-color: transparent #2d2d44 transparent transparent;
         }
 
-        .timeline-item:nth-child(even)::after {
-            left: -50px;
-        }
-
-        .date {
+        .timeline-date {
             font-weight: bold;
-            color: #b22222;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .message {
+            color: #b19cd9;
             font-size: 1.1rem;
-            line-height: 1.6;
         }
 
-        .love-letter {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 30px;
-            border-radius: 20px;
-            margin: 40px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        .love-letter h2 {
+        footer {
             text-align: center;
-            margin-bottom: 20px;
-            color: #b22222;
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .gallery-item {
-            background: rgba(255, 255, 255, 0.7);
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #6a3093 0%, #a044ff 100%);
+            color: white;
             border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .gallery-item:hover {
-            transform: translateY(-10px);
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path fill="white" d="M50,20 C60,10 80,15 80,30 C80,45 60,50 50,60 C40,50 20,45 20,30 C20,15 40,10 50,20 Z"/></svg>');
         }
 
-        .gallery-item i {
-            font-size: 3rem;
-            color: #ff4d6d;
-            margin-bottom: 15px;
+        .heart {
+            color: #ff6b6b;
+            font-size: 2.5rem;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            margin: 15px 0;
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 30px;
-            font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.2); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
         }
 
-        .hearts-container {
+        .floating-hearts {
             position: fixed;
             top: 0;
             left: 0;
@@ -201,109 +306,8 @@
         .heart-float {
             position: absolute;
             font-size: 20px;
-            color: #ff4d6d;
-            opacity: 0.7;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .counter {
-            display: flex;
-            justify-content: space-around;
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .counter-item {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            flex: 1;
-            margin: 0 10px;
-            transition: transform 0.3s;
-        }
-
-        .counter-item:hover {
-            transform: scale(1.05);
-        }
-
-        .counter-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #ff4d6d;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .counter-label {
-            font-size: 1.1rem;
-            color: #8b0000;
-            font-weight: 500;
-        }
-
-        .special-message {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .special-message h3 {
-            color: #b22222;
-            margin-bottom: 15px;
-        }
-
-        .xuxinha-section {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 30px;
-            border-radius: 20px;
-            margin: 40px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .xuxinha-section h2 {
-            color: #b22222;
-            margin-bottom: 20px;
-        }
-
-        .xuxinha-icon {
-            font-size: 4rem;
-            color: #ff4d6d;
-            margin: 20px 0;
-            animation: bounce 2s infinite;
-        }
-
-        .last-update {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #8b0000;
-            opacity: 0.8;
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
+            color: rgba(106, 48, 147, 0.4);
+            animation: float 15s infinite linear;
         }
 
         @keyframes float {
@@ -312,10 +316,10 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.7;
+                opacity: 1;
             }
             90% {
-                opacity: 0.7;
+                opacity: 1;
             }
             100% {
                 transform: translateY(-100px) rotate(360deg);
@@ -323,287 +327,771 @@
             }
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
+        .love-letter {
+            background: linear-gradient(135deg, #3a3a5d 0%, #2d2d44 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #8a6bb8;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid #4a3f6b;
         }
 
-        @keyframes countUp {
-            from { 
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to { 
-                transform: scale(1);
-                opacity: 1;
-            }
+        .love-letter p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #e6e6ff;
+        }
+
+        .personal-message {
+            background: linear-gradient(135deg, #3a2d3d 0%, #2d252e 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #6a3d5a;
+            box-shadow: 0 5px 15px rgba(106, 61, 90, 0.3);
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: justify;
+            color: #e6e6ff;
+        }
+
+        .confession-section {
+            background: linear-gradient(135deg, #3a2d3d 0%, #2d252e 100%);
+            border: 2px solid #8a4c6b;
+            position: relative;
+        }
+
+        .confession-section::before {
+            content: "❤";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            color: #ff6b6b;
+        }
+
+        .confession-text {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #e6d8e6;
+        }
+
+        .live-confession {
+            background: linear-gradient(135deg, #2d3a3d 0%, #252e2d 100%);
+            border: 2px dashed #4c8a7d;
+            position: relative;
+        }
+
+        .live-confession::before {
+            content: "📞";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+        }
+
+        .live-text {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            text-align: justify;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #d8e6e6;
+            background: rgba(76, 138, 125, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4c8a7d;
+        }
+
+        .celebration-section {
+            background: linear-gradient(135deg, #3d3a2d 0%, #2e2d25 100%);
+            border: 3px solid #b8860b;
+            position: relative;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(184, 134, 11, 0.5); }
+            to { box-shadow: 0 0 30px rgba(184, 134, 11, 0.8); }
+        }
+
+        .celebration-section::before {
+            content: "🎉";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2.5rem;
+        }
+
+        .celebration-text {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: center;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #ffd700;
+            background: rgba(184, 134, 11, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px dashed #ffd700;
+            font-weight: bold;
+        }
+
+        .miracle-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: justify;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #e6d8a0;
+            background: rgba(139, 69, 19, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #daa520;
+        }
+
+        .cute-section {
+            background: linear-gradient(135deg, #2d3a3d 0%, #252e2d 100%);
+            border: 2px solid #4c8a7d;
+            position: relative;
+        }
+
+        .cute-section::before {
+            content: "💕";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+        }
+
+        .cute-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: justify;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #d8e6e6;
+            background: rgba(76, 138, 125, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4c8a7d;
+        }
+
+        .dreams-section {
+            background: linear-gradient(135deg, #3a2d3d 0%, #2d252e 100%);
+            border: 2px solid #8a4c6b;
+            position: relative;
+        }
+
+        .dreams-section::before {
+            content: "✨";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+        }
+
+        .dreams-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: justify;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #e6d8e6;
+            background: rgba(138, 76, 107, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #8a4c6b;
+        }
+
+        .promises-section {
+            background: linear-gradient(135deg, #2d3a2d 0%, #252e25 100%);
+            border: 2px solid #4c8a4c;
+            position: relative;
+        }
+
+        .promises-section::before {
+            content: "🤍";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+        }
+
+        .promises-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: justify;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #d8e6d8;
+            background: rgba(76, 138, 76, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4c8a4c;
+        }
+
+        .special-message-section {
+            background: linear-gradient(135deg, #3d2d3a 0%, #2e252d 100%);
+            border: 2px solid #8a4c7d;
+            position: relative;
+        }
+
+        .special-message-section::before {
+            content: "🎁";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2.5rem;
+        }
+
+        .special-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: justify;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #e6d8e0;
+            background: rgba(138, 76, 125, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #8a4c7d;
+        }
+
+        .highlight-text {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-align: center;
+            padding: 0 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #ff6b9d;
+            background: rgba(255, 107, 157, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px dashed #ff6b9d;
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .dates {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .timeline::after {
+                left: 31px;
             }
             
             .timeline-item {
-                width: calc(100% - 60px);
-                left: 60px !important;
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
             }
             
-            .timeline-item::after {
-                left: -40px !important;
-                right: auto !important;
+            .timeline-item:nth-child(even) {
+                left: 0;
             }
             
-            .counter {
-                flex-direction: column;
-                gap: 15px;
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -14px;
+                border-color: transparent #2d2d44 transparent transparent;
             }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .counter-number {
-                font-size: 2.5rem;
+
+            .compliments-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="hearts-container" id="heartsContainer"></div>
-    
+    <div class="floating-hearts" id="hearts-container"></div>
+
     <div class="container">
         <header>
-            <h1>Nossa <span class="heart">♥</span> História</h1>
-            <p class="subtitle">Cada momento com você é especial e único</p>
-            <p>Este site é uma declaração de amor para a pessoa mais incrível do mundo</p>
+            <h1>Para Maria, Meu Grande Amor</h1>
+            <p class="subtitle">Cada momento contigo é um tesouro que guardo no coração</p>
+            
+            <div class="dates">
+                <div class="date-card">
+                    <p>Começamos a conversar</p>
+                    <p>02/10/2025</p>
+                </div>
+                <div class="date-card">
+                    <p>Me apaixonei por você</p>
+                    <p>05/09/2025</p>
+                </div>
+                <div class="date-card">
+                    <p>Nosso primeiro beijo</p>
+                    <p>06/11/2025</p>
+                </div>
+            </div>
         </header>
-        
-        <div class="intro">
-            <p>Desde que você entrou na minha vida, tudo ganhou novas cores. Cada dia ao seu lado é uma bênção, cada momento uma memória preciosa que guardo no coração. Este site é uma pequena demonstração de tudo que sinto por você.</p>
-        </div>
-        
-        <div class="counter">
-            <div class="counter-item">
-                <div class="counter-number" id="daysSinceFirstTalk">37</div>
-                <div class="counter-label">Dias desde nossa primeira conversa</div>
-            </div>
-            <div class="counter-item">
-                <div class="counter-number" id="daysSinceLove">64</div>
-                <div class="counter-label">Dias que te amo</div>
-            </div>
-            <div class="counter-item">
-                <div class="counter-number" id="daysSinceFirstKiss">2</div>
-                <div class="counter-label">Dias desde nosso primeiro beijo</div>
-            </div>
-        </div>
-        
-        <div class="last-update" id="lastUpdate">
-            Atualizado automaticamente todos os dias
-        </div>
-        
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="date"><i class="fas fa-comments"></i> 02/10/2025</div>
-                <div class="message">
-                    <p>Nossa primeira conversa foi mágica. Lembro de cada detalhe, cada palavra trocada, cada risada compartilhada. Foi como se o universo finalmente tivesse se alinhado para nos conectar.</p>
-                    <p>Naquele dia, algo dentro de mim mudou para sempre. Suas palavras tinham uma doçura única, e eu sabia que aquela conversa era apenas o começo de algo extraordinário.</p>
-                </div>
+
+        <!-- 1. O DIA QUE VC ME DEIXOU SEM PALAVRAS -->
+        <section id="confissao-recente" class="confession-section">
+            <h2>O Dia Que Você Me Deixou Sem Palavras</h2>
+            
+            <div class="confession-text">
+                Maria, hoje, dia 08/10, te vi na escola. Você estava com uma blusa azul escura e uma calça cinza. Você estava tão perfeita, mdsss! Eu acho que realmente te amo muito muito muitoooooooooo.
             </div>
             
-            <div class="timeline-item">
-                <div class="date"><i class="fas fa-heart"></i> 05/09/2025</div>
-                <div class="message">
-                    <p>Foi nesse dia que percebi que estava me apaixonando por você. Não foi um momento específico, mas sim uma constelação de pequenos instantes que se somaram e transformaram meu coração.</p>
-                    <p>Seu jeito, sua voz, sua forma de ver o mundo... Tudo em você me cativou de uma maneira que nunca imaginei possível. Desde então, meu coração bate no ritmo do seu nome.</p>
-                </div>
+            <div class="confession-text">
+                Mas não sei se você gosta de mim. Acho que você prefere o Miguel pelo que eu ouvi nos boatos. Desculpa atrapalhar vocês dois. Nem sei se você vai ver esse site, mas saiba que eu gosto de você.
             </div>
             
-            <div class="timeline-item">
-                <div class="date"><i class="fas fa-kiss-wink-heart"></i> 06/11/2025</div>
-                <div class="message">
-                    <p>Nosso primeiro beijo... Um momento que ficará gravado na minha memória para sempre. O mundo parou, o tempo desapareceu, e só existíamos nós dois naquele instante perfeito.</p>
-                    <p>Foi doce, intenso e confirmou tudo o que eu já sentia por você. Naquele beijo, eu soube que tinha encontrado meu lar, minha paz, minha pessoa.</p>
+            <div class="confession-text">
+                Mesmo com essa dúvida no meu coração, não consigo parar de pensar em você. Seu sorriso, seu jeito, tudo em você me encanta. Se um dia você der uma chance para mim, prometo que farei de tudo para te fazer feliz.
+            </div>
+        </section>
+
+        <!-- 2. DO FUNDO DO MEU CORAÇÃO -->
+        <section id="mensagem-pessoal">
+            <h2>Do Fundo do Meu Coração</h2>
+            <div class="personal-message">
+                <p>Oi Maria, estou escrevendo isso no dia 02/10/2025, e estou muitooo apaixonado por você. Não sei se no futuro vamos dar certo, mas tomara a Deus que dê.</p>
+                <p>Eu te acho muitoo bonita, muito gentil, muito educada e estudiosa. Posso não ser tão bonito, mas né, nada que uma mulher incrível como você ao meu lado não me deixe mais bonito kk.</p>
+                <p>Espero que você goste deste presente digital que fiz especialmente para você, com todo o carinho do mundo.</p>
+            </div>
+        </section>
+
+        <!-- 3. NESSE EXATO MOMENTO -->
+        <section id="chamada-ao-vivo" class="live-confession">
+            <h2>Nesse Exato Momento... 📞</h2>
+            
+            <div class="live-text">
+                Maria, kk estamos em chamada nesse exato momento e você quer saber de quem eu gosto... mas eu não sei se falo porque tenho medo de você não gostar de mim 😕
+            </div>
+            
+            <div class="live-text">
+                É tão estranho escrever isso enquanto ouvimos nossas vozes ao telefone. Cada palavra que digito parece mais pesada, mais real.
+            </div>
+            
+            <div class="live-text">
+                Você está aí, do outro lado da linha, com aquela voz que me acalma, me faz sorrir, me faz sentir coisas que nunca senti antes. E eu aqui, tentando encontrar coragem para dizer o que realmente sinto.
+            </div>
+        </section>
+
+        <!-- 4. O NOSSO MILAGRE ACONTECEU -->
+        <section id="celebracao" class="celebration-section">
+            <h2>🎊 Nosso Milagre Aconteceu! 🎊</h2>
+            
+            <div class="celebration-text">
+                MEU DEUS! EU FALEI PRA VOCÊ QUE GOSTAVA DE VOCÊ... E VOCÊ GOSTA DE MIM! 
+                EU ESTOU CHORANDO DE FELICIDADE, VOCÊ NÃO TEM IDEIA!
+            </div>
+            
+            <div class="miracle-text">
+                Cada oração que fiz, cada noite que passei olhando para as estrelas pedindo a Deus que fosse você... 
+                Cada sonho que tive, cada esperança que guardei no fundo do meu coração...
+            </div>
+            
+            <div class="miracle-text">
+                E hoje, neste momento mágico, descobri que todos os meus pedidos foram atendidos. 
+                Você é a resposta para todas as minhas preces, a realização de todos os meus sonhos.
+            </div>
+            
+            <div class="miracle-text">
+                Lembro de cada dia em que eu olhava para você na escola, admirando de longe, 
+                achando que nunca teria uma chance com alguém tão incrível quanto você. 
+                E agora aqui estamos, com nossos sentimentos se encontrando no meio do caminho.
+            </div>
+            
+            <div class="celebration-text">
+                ESTE É O DIA MAIS FELIZ DA MINHA VIDA! 
+                CADA SEGUNDO DE ESPERA VALEU A PENA POR ESTE MOMENTO!
+            </div>
+        </section>
+
+        <!-- 5. MINHAS DECLARAÇÕES DE AMOR -->
+        <section id="declaracoes">
+            <h2>Minhas Declarações de Amor</h2>
+            
+            <div class="love-text">
+                Maria, desde que você entrou na minha vida, tudo ganhou cores mais vivas. Cada dia ao seu lado é uma bênção que agradeço ao universo. Seu sorriso ilumina meus dias mais cinzentos e sua voz acalma minha alma.
+            </div>
+            
+            <div class="love-text">
+                Lembro-me perfeitamente do dia 05/09/2025, quando percebi que estava me apaixonando por você. Foi como se todas as peças do quebra-cabeça da minha vida tivessem se encaixado de repente. Naquele momento, entendi que você era a pessoa que eu procurava há tanto tempo.
+            </div>
+            
+            <div class="love-text">
+                Nosso primeiro beijo em 06/11/2025 foi mágico. Foi como se o tempo parasse e só existíssemos nós dois naquele instante perfeito. A sensação dos seus lábios nos meus é algo que carrego comigo todos os dias, como um doce segredo que aquece meu coração.
+            </div>
+            
+            <div class="love-text">
+                Quando estou com você, sinto que estou em casa, não importa onde estejamos. Seu abraço é meu refúgio, seu sorriso é minha alegria, seu amor é minha força. Você é a razão pela qual acredito em contos de fadas, porque com você, vivo um todos os dias.
+            </div>
+        </section>
+
+        <!-- 6. CARTA DO MEU CORAÇÃO -->
+        <section id="carta">
+            <h2>Carta do Meu Coração</h2>
+            
+            <div class="love-letter">
+                <p>Minha querida Maria,</p>
+                
+                <p>Escrevo estas palavras com o coração transbordando de amor por você. Às vezes, quando estou sozinho, fecho os olhos e sinto sua presença, como se você estivesse sempre comigo, mesmo quando estamos longe.</p>
+                
+                <p>Adoro a maneira como seus olhos brilham quando você ri, como seu cabelo dança ao vento, como sua voz suave preenche o silêncio da minha alma. Cada detalhe seu é uma obra de arte que eu poderia admirar por toda a eternidade.</p>
+                
+                <p>Você me faz querer ser uma pessoa melhor a cada dia. Quando acordo, meu primeiro pensamento é você. Quando durmo, meus sonhos são povoados pela sua imagem. Você se tornou o centro do meu universo, a estrela que guia meus passos.</p>
+                
+                <p>Obrigado por ser exatamente quem você é - uma pessoa incrível, forte, inteligente e com um coração maior que o mundo. Obrigado por me escolher, por me amar, por fazer parte da minha vida.</p>
+                
+                <p>Com todo o meu amor,<br>
+                Para sempre seu.</p>
+            </div>
+        </section>
+
+        <!-- 7. MARIA É VOCÊ -->
+        <section id="elogios" class="compliments-section">
+            <h2>Maria, Você É...</h2>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 1.2rem; color: #d8d8f0;">Uma lista de tudo que você significa para mim</p>
+            
+            <div class="compliments-container">
+                <div class="compliment-card">
+                    <p class="compliment-text">A pessoa mais linda que meus olhos já viram</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">Meu porto seguro nos dias difíceis</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A razão do meu sorriso todas as manhãs</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">Inteligente e perspicaz além das palavras</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A dona do sorriso mais contagiante do mundo</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A pessoa que me inspira a ser melhor</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A minha melhor amiga e confidente</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A luz que ilumina minha vida</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A calma na minha tempestade</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A pessoa com o coração mais puro que conheço</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">Minha musa inspiradora</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A razão pela qual acredito no amor</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A dona do abraço mais aconchegante</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A pessoa que torna meus dias especiais</p>
+                </div>
+                <div class="compliment-card">
+                    <p class="compliment-text">A mulher dos meus sonhos que se tornou realidade</p>
                 </div>
             </div>
-        </div>
-        
-        <div class="xuxinha-section">
-            <h2><i class="fas fa-heart"></i> A Xuxinha Que Você Me Deu</h2>
-            <div class="xuxinha-icon">
-                <i class="fas fa-ribbon"></i>
+        </section>
+
+        <!-- 8. NOSSOS MOMENTOS ESPECIAIS -->
+        <section id="momentos">
+            <h2>Nossos Momentos Especiais</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>O Início de Tudo</h3>
+                        <p class="timeline-date">02/10/2025</p>
+                        <p>O dia em que começamos a conversar e uma conexão especial nasceu entre nós. Cada mensagem trocada era como uma peça do quebra-cabeça que nos unia.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>O Despertar do Amor</h3>
+                        <p class="timeline-date">05/09/2025</p>
+                        <p>O dia em que percebi que estava me apaixonando por você. Um sentimento que crescia a cada conversa, a cada risada compartilhada, a cada momento juntos.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Nosso Primeiro Beijo</h3>
+                        <p class="timeline-date">06/11/2025</p>
+                        <p>Um momento mágico que marcou para sempre nossas vidas. A confirmação de que o que sentíamos era real, intenso e verdadeiro.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Nosso Primeiro "Eu Te Amo"</h3>
+                        <p class="timeline-date">15/12/2025</p>
+                        <p>O dia em que nossas almas se encontraram completamente. Quando disse "eu te amo" e você respondeu com a mesma intensidade, senti que tinha encontrado meu lugar no mundo.</p>
+                    </div>
+                </div>
             </div>
-            <p>Lembro com tanto carinho do dia em que você me deu sua xuxinha. Foi um gesto tão simples, mas que significou tanto para mim.</p>
-            <p>Aquela xuxinha era um pedacinho de você que eu podia carregar comigo. Cada vez que eu a via, sentia sua presença, seu carinho, seu amor.</p>
-            <p>Ela representava sua vontade de estar perto de mim, de fazer parte da minha vida. Era sua maneira doce de dizer "estou aqui" e "me importo com você".</p>
-            <p>Guardo essa xuxinha com todo o cuidado, pois ela é um símbolo do seu amor e do que temos de tão especial. Um dia, quero retribuir esse gesto com algo igualmente significativo.</p>
-        </div>
-        
-        <div class="special-message">
-            <h3><i class="fas fa-heart"></i> Nosso Amor em Silêncio</h3>
-            <p>Às vezes, as coisas mais bonitas não precisam de som. Nosso amor fala por si só, em cada olhar, cada toque, cada momento compartilhado.</p>
-            <p>Este silêncio é preenchido pelo bater dos nossos corações, que encontraram seu ritmo perfeito quando se uniram.</p>
-        </div>
-        
-        <div class="love-letter">
-            <h2>Minha Carta de Amor para Você</h2>
-            <p>Meu amor,</p>
-            <p>Escrever estas palavras parece tão pequeno perto de tudo que sinto por você. Você é a luz que ilumina meus dias, a calma na minha tempestade, a razão do meu sorriso mais sincero.</p>
-            <p>Lembro-me de cada momento que passamos juntos como se fosse ontem. Nossa primeira conversa, quando descobri o quão incrível você é. O dia em que percebi que estava me apaixonando, e como essa paixão só cresce a cada dia. E nosso primeiro beijo, que foi pura magia.</p>
-            <p>E lembro com tanto carinho da xuxinha que você me deu. Aquele gesto simples carregava todo o seu coração. Era sua maneira doce de se fazer presente na minha vida, mesmo quando estávamos longe. Guardei ela com todo o cuidado, pois representa um pedacinho de você.</p>
-            <p>Você transformou minha vida de maneiras que nunca imaginei possíveis. Com você, aprendi o verdadeiro significado do amor - aquele que acolhe, que compreende, que fortalece. Obrigado por ser exatamente quem você é.</p>
-            <p>Prometo estar ao seu lado nos bons e maus momentos, celebrar suas vitórias, enxugar suas lágrimas e fazer você sorrir todos os dias. Meu coração é seu, hoje e sempre.</p>
-            <p>Com todo meu amor,</p>
-          
-        </div>
-        
-        <div class="gallery">
-            <div class="gallery-item">
-                <i class="fas fa-heart"></i>
-                <h3>Nosso Amor</h3>
-                <p>Um sentimento que cresce a cada dia</p>
+        </section>
+
+        <!-- 9. NOSSA JORNADA JUNTOS -->
+        <section id="futuro">
+            <h2>Nossa Jornada Juntos</h2>
+            
+            <div class="love-text">
+                Imagino nosso futuro com um sorriso no rosto. Vejo-nos construindo uma vida juntos, compartilhando sonhos, superando desafios e celebrando cada conquista.
             </div>
-            <div class="gallery-item">
-                <i class="fas fa-ribbon"></i>
-                <h3>Sua Xuxinha</h3>
-                <p>Um símbolo do seu carinho</p>
+            
+            <div class="love-text">
+                Quero acordar ao seu lado todos os dias, ver o sol da manhã iluminar seu rosto, preparar o café da manhã enquanto você ainda dorme, roubar beijos antes de sairmos para trabalhar.
             </div>
-            <div class="gallery-item">
-                <i class="fas fa-hand-holding-heart"></i>
-                <h3>Nosso Futuro</h3>
-                <p>Juntos, construindo nossa história</p>
+            
+            <div class="love-text">
+                Sonho com nossas viagens, nossas aventuras, nossas risadas compartilhadas. Quero envelhecer ao seu lado, criando memórias que aquecerão nossos corações mesmo nos invernos mais frios.
             </div>
-            <div class="gallery-item">
-                <i class="fas fa-star"></i>
-                <h3>Nossos Sonhos</h3>
-                <p>Planos que faremos juntos</p>
+            
+            <div class="love-text">
+                Minha Princesa, não importa o que o futuro nos reserve, desde que estejamos juntos, sei que seremos capazes de enfrentar qualquer coisa. Nosso amor é minha maior fortaleza e minha mais doce inspiração.
             </div>
-        </div>
-        
-        <div class="footer">
-            <p>Você é a pessoa mais especial da minha vida <span class="heart">♥</span></p>
-            <p>Te amo mais do que palavras podem expressar</p>
-            <p style="margin-top: 15px; font-size: 1rem;">Este site foi feito com todo o carinho do mundo para você</p>
-        </div>
+            
+            <div class="love-text">
+                Prometo amar você todos os dias da minha vida, com a mesma intensidade do primeiro dia, mas com a profundidade que só o tempo pode dar. Prometo ser seu abrigo, seu confidente, seu melhor amigo e o amor da sua vida, assim como você é o meu.
+            </div>
+        </section>
+
+        <!-- NOVAS SEÇÕES ADICIONADAS -->
+
+        <!-- 10. COISINHAS FOFAS QUE EU PENSO SOBRE NÓS -->
+        <section id="coisas-fofas" class="cute-section">
+            <h2>💕 Coisinhas Fofas Que Eu Penso Sobre Nós</h2>
+            
+            <div class="cute-text">
+                Eu imagino nós dois assistindo filmes debaixo do mesmo cobertor, com você colocando sua cabeça no meu ombro e eu fazendo carinho no seu cabelo. Seria perfeito!
+            </div>
+            
+            <div class="cute-text">
+                Penso em como seria bom te ver todos os dias acordando ao meu lado, com aquele seu jeito sonolento que deve ser a coisa mais fofa do mundo.
+            </div>
+            
+            <div class="cute-text">
+                Me imagino te protegendo da chuva com meu casaco, mesmo que eu fique todo molhado, só para ver você sorrir daquela maneira especial que só você tem.
+            </div>
+            
+            <div class="cute-text">
+                Sonho com o dia em que vou poder te abraçar sem precisar de desculpas, só porque sim, só porque você é você e eu te amo.
+            </div>
+            
+            <div class="cute-text">
+                Penso em como seria incrível fazer você café da manhã na cama nos domingos, só para ver seu rosto iluminar com um sorriso quando você visse o que preparei.
+            </div>
+        </section>
+
+        <!-- 11. NOSSOS SONHOS JUNTOS -->
+        <section id="nossos-sonhos" class="dreams-section">
+            <h2>✨ Nossos Sonhos Juntos</h2>
+            
+            <div class="dreams-text">
+                Sonho em viajar com você para lugares mágicos, de mãos dadas, descobrindo o mundo juntos e criando memórias que vão durar para sempre.
+            </div>
+            
+            <div class="dreams-text">
+                Imagino nós dois envelhecendo juntos, rindo das mesmas piadas bobas, contando as mesmas histórias mil vezes e amando um ao outro mais a cada dia que passa.
+            </div>
+            
+            <div class="dreams-text">
+                Sonho com as noites de conversa até tarde, compartilhando segredos, medos, sonhos e risadas, até o sol nascer e nós percebermos que passamos a noite toda acordados.
+            </div>
+            
+            <div class="dreams-text">
+                Me vejo te apoiando em todos os seus projetos, celebrando cada conquista sua como se fosse minha, porque na verdade é - tudo que é seu também é meu.
+            </div>
+            
+            <div class="dreams-text">
+                Sonho em construir uma vida ao seu lado, onde cada day comum se torna extraordinário só porque estamos juntos.
+            </div>
+        </section>
+
+        <!-- 12. MINHAS PROMESSAS PARA VOCÊ -->
+        <section id="promessas" class="promises-section">
+            <h2>🤍 Minhas Promessas Para Você</h2>
+            
+            <div class="promises-text">
+                Prometo sempre te fazer rir, mesmo nos dias difíceis. Seu sorriso é a coisa mais preciosa que conheço e farei de tudo para vê-lo brilhar.
+            </div>
+            
+            <div class="promises-text">
+                Prometo te ouvir, realmente ouvir, quando você precisar desabafar. Seus sentimentos sempre serão importantes para mim.
+            </div>
+            
+            <div class="promises-text">
+                Prometo ser seu porto seguro, a pessoa que você pode contar não só nos momentos felizes, mas principalmente quando as coisas ficarem difíceis.
+            </div>
+            
+            <div class="promises-text">
+                Prometo lembrar você todos os dias do quanto é especial, inteligente, forte e incrível. Nunca vou deixar você duvidar do seu valor.
+            </div>
+            
+            <div class="promises-text">
+                Prometo amar cada parte de você - a versão animada, a versão séria, a versão sonolenta de manhã, a versão que fala pelos cotovelos quando está empolgada.
+            </div>
+            
+            <div class="promises-text">
+                E acima de tudo, prometo nunca desistir de nós. Vou lutar por nosso amor todos os dias, com toda a força que tenho no coração.
+            </div>
+        </section>
+
+        <!-- 13. MENSAGEM ESPECIAL SOBRE O ENVIO -->
+        <section id="mensagem-especial" class="special-message-section">
+            <h2>🎁 Uma Coisinha Especial...</h2>
+            
+            <div class="highlight-text">
+                EU IA TE MANDAR ESSE SITE NO ANO NOVO DIA 01/01/2026...
+            </div>
+            
+            <div class="special-text">
+                Mas você pediu pra eu te mandar no dia do meu aniversário que é hoje kk (Parabéns pra eu do futuro air kk beijo no cuzin 😘)
+            </div>
+            
+            <div class="special-text">
+                E eu tô te mandando hoje porque né... minha mulher que manda! 😂
+            </div>
+            
+            <div class="special-text">
+                Sério, você não tem ideia de como foi difícil guardar esse segredo todo esse tempo. Todo dia eu olhava pra esse site pronto e morria de vontade de te mostrar, mas eu queria fazer do jeitinho que você pediu.
+            </div>
+            
+            <div class="special-text">
+                Espero que você tenha gostado de cada detalhe, cada palavra, cada coraçãozinho que coloquei aqui. Fiz com todo o amor do mundo, pensando em cada momento nosso, em cada sorriso seu que me conquistou.
+            </div>
+            
+            <div class="highlight-text">
+                TE AMO MAIS QUE TUDO, MINHA PRINCESA! 💖
+            </div>
+        </section>
+
+        <footer>
+            <p>Maria, você é o amor da minha vida e eu sou eternamente grato por ter você comigo.</p>
+            <p>Te amo mais do que todas as palavras deste site podem expressar.</p>
+            <div class="heart">♥</div>
+            <p>Para sempre seu,</p>
+            <p style="font-weight: bold; margin-top: 10px; font-size: 1.2rem;"> Eu Te Amo Muito</p>
+        </footer>
     </div>
-    
+
     <script>
-        // Criar corações flutuantes
-        function createHearts() {
-            const container = document.getElementById('heartsContainer');
-            const heartCount = 40;
+        document.addEventListener('DOMContentLoaded', function() {
+            const loveTexts = document.querySelectorAll('.love-text');
+            const confessionTexts = document.querySelectorAll('.confession-text');
+            const liveTexts = document.querySelectorAll('.live-text');
+            const miracleTexts = document.querySelectorAll('.miracle-text');
+            const celebrationTexts = document.querySelectorAll('.celebration-text');
+            const cuteTexts = document.querySelectorAll('.cute-text');
+            const dreamsTexts = document.querySelectorAll('.dreams-text');
+            const promisesTexts = document.querySelectorAll('.promises-text');
+            const specialTexts = document.querySelectorAll('.special-text');
+            const highlightTexts = document.querySelectorAll('.highlight-text');
             
-            for (let i = 0; i < heartCount; i++) {
+            loveTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.3}s`;
+            });
+            
+            confessionTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.3}s`;
+            });
+
+            liveTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.3}s`;
+            });
+
+            miracleTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.3}s`;
+            });
+
+            celebrationTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.5}s`;
+            });
+
+            cuteTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.3}s`;
+            });
+
+            dreamsTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.3}s`;
+            });
+
+            promisesTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.3}s`;
+            });
+
+            specialTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.3}s`;
+            });
+
+            highlightTexts.forEach((text, index) => {
+                text.style.opacity = '0';
+                text.style.animation = `fadeIn 1s ease forwards ${index * 0.5}s`;
+            });
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            const heart = document.querySelector('.heart');
+            setInterval(() => {
+                heart.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    heart.style.transform = 'scale(1)';
+                }, 300);
+            }, 2000);
+            
+            const heartsContainer = document.getElementById('hearts-container');
+            function createHeart() {
                 const heart = document.createElement('div');
                 heart.classList.add('heart-float');
                 heart.innerHTML = '♥';
                 heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 6 + 's';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
                 heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                container.appendChild(heart);
-            }
-        }
-        
-        // Calcular dias desde as datas especiais
-        function calculateDays() {
-            const firstTalk = new Date('2025-10-02');
-            const firstLove = new Date('2025-09-05');
-            const firstKiss = new Date('2025-11-06');
-            const today = new Date();
-            
-            // Calcular diferença em dias
-            const daysSinceFirstTalk = Math.floor((today - firstTalk) / (1000 * 60 * 60 * 24));
-            const daysSinceLove = Math.floor((today - firstLove) / (1000 * 60 * 60 * 24));
-            const daysSinceFirstKiss = Math.floor((today - firstKiss) / (1000 * 60 * 60 * 24));
-            
-            // Atualizar os contadores com animação
-            updateCounterWithAnimation('daysSinceFirstTalk', daysSinceFirstTalk);
-            updateCounterWithAnimation('daysSinceLove', daysSinceLove);
-            updateCounterWithAnimation('daysSinceFirstKiss', daysSinceFirstKiss);
-            
-            // Atualizar data da última atualização
-            const lastUpdateElement = document.getElementById('lastUpdate');
-            const now = new Date();
-            lastUpdateElement.textContent = `Atualizado em: ${now.toLocaleDateString('pt-BR')} às ${now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'})}`;
-        }
-        
-        // Atualizar contador com animação
-        function updateCounterWithAnimation(elementId, newValue) {
-            const element = document.getElementById(elementId);
-            const currentValue = parseInt(element.textContent);
-            
-            if (currentValue !== newValue) {
-                // Adicionar animação
-                element.style.animation = 'countUp 0.5s ease-out';
+                heartsContainer.appendChild(heart);
                 
-                // Atualizar valor
-                element.textContent = newValue;
-                
-                // Remover animação após execução
                 setTimeout(() => {
-                    element.style.animation = '';
-                }, 500);
-            }
-        }
-        
-        // Verificar se é um novo dia
-        function checkNewDay() {
-            const today = new Date().toDateString();
-            const lastCheck = localStorage.getItem('lastDayCheck');
-            
-            if (lastCheck !== today) {
-                // É um novo dia, atualizar contadores
-                calculateDays();
-                localStorage.setItem('lastDayCheck', today);
-            }
-        }
-        
-        // Inicializar
-        function init() {
-            createHearts();
-            
-            // Verificar se já temos dados salvos
-            const savedFirstTalk = localStorage.getItem('daysSinceFirstTalk');
-            const savedLove = localStorage.getItem('daysSinceLove');
-            const savedFirstKiss = localStorage.getItem('daysSinceFirstKiss');
-            
-            if (savedFirstTalk && savedLove && savedFirstKiss) {
-                // Usar valores salvos
-                document.getElementById('daysSinceFirstTalk').textContent = savedFirstTalk;
-                document.getElementById('daysSinceLove').textContent = savedLove;
-                document.getElementById('daysSinceFirstKiss').textContent = savedFirstKiss;
+                    heart.remove();
+                }, 20000);
             }
             
-            // Calcular e atualizar contadores
-            calculateDays();
+            for (let i = 0; i < 15; i++) {
+                setTimeout(createHeart, i * 500);
+            }
             
-            // Salvar valores atuais
-            localStorage.setItem('daysSinceFirstTalk', document.getElementById('daysSinceFirstTalk').textContent);
-            localStorage.setItem('daysSinceLove', document.getElementById('daysSinceLove').textContent);
-            localStorage.setItem('daysSinceFirstKiss', document.getElementById('daysSinceFirstKiss').textContent);
-            
-            // Verificar novo dia a cada hora
-            setInterval(checkNewDay, 60 * 60 * 1000);
-            
-            // Atualizar contadores a cada 24 horas
-            setInterval(() => {
-                calculateDays();
-                // Salvar novos valores
-                localStorage.setItem('daysSinceFirstTalk', document.getElementById('daysSinceFirstTalk').textContent);
-                localStorage.setItem('daysSinceLove', document.getElementById('daysSinceLove').textContent);
-                localStorage.setItem('daysSinceFirstKiss', document.getElementById('daysSinceFirstKiss').textContent);
-            }, 24 * 60 * 60 * 1000);
-        }
-        
-        // Adicionar animação de entrada para os itens da linha do tempo
-        const timelineItems = document.querySelectorAll('.timeline-item');
-        timelineItems.forEach((item, index) => {
-            item.style.animationDelay = (index * 0.3) + 's';
+            setInterval(createHeart, 1000);
         });
-        
-        // Iniciar quando a página carregar
-        window.addEventListener('load', init);
     </script>
 </body>
 </html>
